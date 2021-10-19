@@ -28,9 +28,10 @@ namespace OpenScratch {
             string tempExtractDirectory = Utils.CreateTemporaryDirectory();
 
             try {
-                if (Directory.Exists(options.OutputDir) && Directory.GetFiles(options.OutputDir).Length != 0) {
-                    Console.Error.WriteLine($"Output directory {options.OutputDir} not empty!");
-                    return 1;
+                if (Directory.Exists(options.OutputDir)) {
+                    File.Delete(Path.Combine(options.OutputDir, Utils.OpenScratchProjectJsonName));
+                    File.Delete(Path.Combine(options.OutputDir, Utils.OpenScratchMonitorsJsonName));
+                    Directory.Delete(Path.Combine(options.OutputDir, Utils.SpritesFolderName), true);
                 }
                 Directory.CreateDirectory(tempExtractDirectory);
 
